@@ -10,9 +10,7 @@ html = """
         <title>ROS WEB</title>
     </head>
     <body>
-        <video width="640" height="480" controls>
-            <source src="rtsp://localhost:8554/live" type="application/x-rtsp">
-        </video>
+        <iframe src="http://rtsp-simple-server-ip:8889/mystream" scrolling="no"></iframe>
     </body>
 </html>
 """
@@ -20,3 +18,7 @@ html = """
 @app.get("/")
 async def get():
     return HTMLResponse(html)
+
+
+
+#ffmpeg -f v4l2 -i /dev/video0 -pix_fmt yuv420p -c:v libx264 -preset ultrafast  -tune zerolatency -f rtsp rtsp://localhost:8554/mystream 
